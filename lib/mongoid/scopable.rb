@@ -326,7 +326,7 @@ module Mongoid
           define_method name do |*args|
             scoping = _declared_scopes[name]
             scope, extension = scoping[:scope][*args], scoping[:extension]
-            criteria = with_default_scope.merge(scope || queryable)
+            criteria = Criteria.new(self).merge(scope)
             criteria.extend(extension)
             criteria
           end
