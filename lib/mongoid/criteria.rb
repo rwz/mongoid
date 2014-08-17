@@ -514,11 +514,11 @@ module Mongoid
     # @since 1.0.0
     def method_missing(name, *args, &block)
       if klass.respond_to?(name)
-        klass.send(:with_scope, self) do
+        klass.with_scope self do
           klass.send(name, *args, &block)
         end
       elsif CHECK.respond_to?(name)
-        return entries.send(name, *args, &block)
+        entries.send(name, *args, &block)
       else
         super
       end
